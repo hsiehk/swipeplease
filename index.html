@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+<h1> Please Swipe</h1>
+<p> Scroll down until the screen turns black.</p>
 </body>
 <script> 
-<canvas id="canvas" width="600" height="600" style="border:solid black 1px;">
-  Your browser does not support canvas element.
-</canvas>
-<br>
-Log: <pre id="log" style="border: 1px solid #ccc;"></pre>
 
 function startup() {
   var el = document.getElementById("canvas");
@@ -70,6 +65,24 @@ function handleMove(evt) {
     }
   }
 }
+
+function handleCancel(evt) {
+  evt.preventDefault();
+  console.log("touchcancel.");
+  var touches = evt.changedTouches;
+
+  for (var i = 0; i < touches.length; i++) {
+    var idx = ongoingTouchIndexById(touches[i].identifier);
+    ongoingTouches.splice(idx, 1);  // remove it; we're done
+  }
+}
+
+function log(msg) {
+  var p = document.getElementById('log');
+  p.innerHTML = msg + "\n" + p.innerHTML;
+}
+
+
 
 </script>
 
