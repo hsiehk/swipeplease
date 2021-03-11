@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1> Welcome! </h1>
-<p> Please follow the instructions on the screen.</p>
+<h1 id = "Welcome"> Welcome! </h1>
+<p id="instructions"> Please follow the instructions on the screen.</p>
 </body>
 <button type="button" id="Start200" onclick ="timer200()" >Start 200 Seconds Trial</button>
 <button type="button" id="Start300" onclick ="timer300()" >Start 300 Seconds Trial</button>
 <script> 
+
+document.getElementById("Welcome").style.fontSize="100px";
+document.getElementById("instructions").style.fontSize="2cm";
+document.getElementById("Start200").style.height = "50px";
+document.getElementById("Start300").style.height = "50px";
 
 function startup() {
   var el = document.getElementById("canvas");
