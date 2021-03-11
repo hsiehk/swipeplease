@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1> Welcome, thank you for participating in this experiment! </h1>
+<h1> Welcome! </h1>
 <p> Please follow the instructions on the screen.</p>
 </body>
+
+var username = prompt("Please enter your name")
+<button type="button" id="Start200" onclick ="timer200()" >Start 200 Seconds Trial</button>
+<button type="button" id="Start300" onclick ="timer300()" >Start 300 Seconds Trial</button>
+
 <script> 
 
 function startup() {
@@ -97,9 +102,6 @@ function timer300(){
 // Instructions: "Please enter your name: " [inputtag]
 // Add start button 200s and 300s, starts correct timer after button pressed
 // Instructions: "Scroll until timer runs out"
-var username = prompt("Please enter your name")
-<button type="button" id="Start200" onclick ="timer200()" >Start 200 Seconds Trial</button>
-<button type="button" id="Start300" onclick ="timer300()" >Start 300 Seconds Trial</button>
 
 // Record to json file with coordinates and time stamps
 // once timer runs out push to git
