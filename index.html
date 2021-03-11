@@ -85,19 +85,21 @@ function log(msg) {
 function timer200(){
   var x = document.getElementById("Start200");
   x.disabled = true;
+  setTimeout(function(){ alert("The 200 Seconds is up!"); }, 200000);
 }
 
 function timer300(){
   var y = document.getElementById("Start300");
   y.disabled = true;
+  setTimeout(function(){ alert("The 300 Seconds is up!"); }, 300000);
 }
 
 // Instructions: "Please enter your name: " [inputtag]
 // Add start button 200s and 300s, starts correct timer after button pressed
 // Instructions: "Scroll until timer runs out"
 var username = prompt("Please enter your name")
-<button type="button" id="Start200" onclick ="timer200()" >Start 200 seconds</button>
-<button type="button" id="Start300" onclick ="timer300()" >Start 300 seconds</button>
+<button type="button" id="Start200" onclick ="timer200()" >Start 200 Seconds Trial</button>
+<button type="button" id="Start300" onclick ="timer300()" >Start 300 Seconds Trial</button>
 
 // Record to json file with coordinates and time stamps
 // once timer runs out push to git
