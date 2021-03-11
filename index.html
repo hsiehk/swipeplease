@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1> Please Swipe</h1>
-<p> Scroll down until the screen turns black.</p>
+<h1> Welcome, thank you for participating in this experiment! </h1>
+<p> Please follow the instructions on the screen.</p>
 </body>
 <script> 
 
@@ -82,10 +82,17 @@ function log(msg) {
   p.innerHTML = msg + "\n" + p.innerHTML;
 }
 
+function timer200(){
+  var x = document.getElementById("Start200");
+  x.disabled = true;
+}
+
 // Instructions: "Please enter your name: " [inputtag]
 // Add start button 200s and 300s, starts correct timer after button pressed
 // Instructions: "Scroll until timer runs out"
-
+var username = prompt("Please enter your name")
+<button type="button" id="Start200" onclick ="timer200()" >Start 200 seconds</button>
+<button type="button" id="Start300" onclick ="timer300()" >Start 300 seconds</button>
 
 // Record to json file with coordinates and time stamps
 // once timer runs out push to git
