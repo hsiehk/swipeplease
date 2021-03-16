@@ -2,36 +2,22 @@
 <!-- saved from url=(0037)https://hsiehk.github.io/swipeplease/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body class="vsc-initialized">
 <h1 id="Welcome" style="font-size: 100px;"> Welcome! </h1>
-<p id="instructions" style="font-size: 2cm;"> Please follow the instructions on the screen.</p>
-<p id="subtxt" style="font-size: 1cm;">After clicking one of the experimental trial buttons please start scrolling down</p>
+<p id="instructions" style="font-size: 1cm;"> After clicking one of the experimental trial buttons please start scrolling down inside the box:</p>
 
 <button type="button" id="Start200" onclick="timer200()" style="height: 50px;">Start 200 Seconds Trial</button>
 <button type="button" id="Start300" onclick="timer300()" style="height: 50px;">Start 300 Seconds Trial</button>
 
-<canvas id="canvas" width="800" height="600" style="border:solid white 1px;">
-  Your browser does not support canvas element.
-</canvas>
 <br>
 Log: <pre id="log" style="border: 1px solid #ccc;"></pre>
-
+<canvas id="canvas" width="800" height="600" style="border:solid black 1px;">
+  Your browser does not support canvas element.
+</canvas>
 <script> 
 
 document.getElementById("Welcome").style.fontSize="100px";
-document.getElementById("instructions").style.fontSize="2cm";
+document.getElementById("instructions").style.fontSize="1cm";
 document.getElementById("Start200").style.height = "50px";
 document.getElementById("Start300").style.height = "50px";
-
-function startup() {
-  var el = document.getElementById("canvas");
-  el.addEventListener("touchstart", handleStart, false);
-  el.addEventListener("touchend", handleEnd, false);
-  el.addEventListener("touchcancel", handleCancel, false);
-  el.addEventListener("touchmove", handleMove, false);
-}
-
-document.addEventListener("DOMContentLoaded", startup);
-
-var ongoingTouches = [];
 
 function handleStart(evt) {
   evt.preventDefault();
@@ -91,6 +77,18 @@ function handleCancel(evt) {
     ongoingTouches.splice(idx, 1);  // remove it; we're done
   }
 }
+
+function startup() {
+  var el = document.getElementById("canvas");
+  el.addEventListener("touchstart", handleStart, false);
+  el.addEventListener("touchend", handleEnd, false);
+  el.addEventListener("touchcancel", handleCancel, false);
+  el.addEventListener("touchmove", handleMove, false);
+}
+
+document.addEventListener("DOMContentLoaded", startup);
+
+var ongoingTouches = [];
 
 function log(msg) {
   var p = document.getElementById('log');
