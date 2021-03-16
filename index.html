@@ -12,6 +12,7 @@ Log: <pre id="log" style="border: 1px solid #ccc;"></pre>
 <canvas id="canvas" width="800" height="600" style="border:solid black 1px;">
   Your browser does not support canvas element.
 </canvas>
+
 <script> 
 
 document.getElementById("Welcome").style.fontSize="100px";
@@ -77,8 +78,8 @@ function handleEnd(evt) {
   for (var i = 0; i < touches.length; i++) {
     var color = colorForTouch(touches[i]);
     var idx = ongoingTouchIndexById(touches[i].identifier);
-
-    if (idx >= 0) {
+    
+    if (idx >= 0) {  
       ctx.lineWidth = 4;
       ctx.fillStyle = color;
       ctx.beginPath();
@@ -110,10 +111,10 @@ function startup() {
   el.addEventListener("touchcancel", handleCancel, false);
   el.addEventListener("touchmove", handleMove, false);
 }
-
+var ongoingTouches = [];
 document.addEventListener("DOMContentLoaded", startup);
 
-var ongoingTouches = [];
+
 
 function log(msg) {
   var p = document.getElementById('log');
