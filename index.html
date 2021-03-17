@@ -7,7 +7,7 @@
 <button type="button" id="Start200" onclick="timer200()" style="height: 50px;">Start 200 Seconds Trial</button>
 <button type="button" id="Start300" onclick="timer300()" style="height: 50px;">Start 300 Seconds Trial</button>
 <br>
-<canvas id="canvas" width="1000" height="1000" style="border:solid black 1px;">
+<canvas id="canvas" width="960" height="1000" style="border:solid black 1px;">
   Your browser does not support canvas element.
 </canvas>
 <br>
@@ -17,8 +17,10 @@ Log: <pre id="log" style="border: 1px solid #ccc;"></pre>
 
 document.getElementById("Welcome").style.fontSize="100px";
 document.getElementById("instructions").style.fontSize="1cm";
-document.getElementById("Start200").style.height = "50px";
-document.getElementById("Start300").style.height = "50px";
+document.getElementById("Start200").style.height = "100px";
+document.getElementById("Start300").style.height = "100px";
+document.getElementById("Start200").style.width = "480px";
+document.getElementById("Start300").style.width = "480px";
 
 function startup() {
   var el = document.getElementById("canvas");
