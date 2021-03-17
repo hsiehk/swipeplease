@@ -6,8 +6,8 @@
 
 <button type="button" id="Start200" onclick="timer200()" style="height: 50px;">Start 200 Seconds Trial</button>
 <button type="button" id="Start300" onclick="timer300()" style="height: 50px;">Start 300 Seconds Trial</button>
-
-<canvas id="canvas" width="1000" height="2000" style="border:solid black 1px;">
+<br>
+<canvas id="canvas" width="1000" height="1000" style="border:solid black 1px;">
   Your browser does not support canvas element.
 </canvas>
 <br>
@@ -37,20 +37,20 @@ function log(msg) {
 
 function handleStart(evt) {
   evt.preventDefault();
-  log("touchstart.");
+  //log("touchstart.");
   var el = document.getElementById("canvas");
   var ctx = el.getContext("2d");
   var touches = evt.changedTouches;
 
   for (var i = 0; i < touches.length; i++) {
-    log("touchstart:" + i + "...");
+    //log("touchstart:" + i + "...");
     ongoingTouches.push(copyTouch(touches[i]));
     var color = colorForTouch(touches[i]);
     ctx.beginPath();
     ctx.arc(touches[i].pageX, touches[i].pageY, 4, 0, 2 * Math.PI, false);  // a circle at the start
     ctx.fillStyle = color;
     ctx.fill();
-    log("touchstart:" + i + ".");
+    //log("touchstart:" + i + ".");
   }
 }
 
@@ -67,9 +67,9 @@ function handleMove(evt) {
     if (idx >= 0) {
       //log("continuing touch "+idx);
       ctx.beginPath();
-      //log("ctx.moveTo(" + ongoingTouches[idx].pageX + ", " + ongoingTouches[idx].pageY + ");");
+      log("ctx.moveTo(" + ongoingTouches[idx].pageX + ", " + ongoingTouches[idx].pageY + ");");
       ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
-      //log("ctx.lineTo(" + touches[i].pageX + ", " + touches[i].pageY + ");");
+      log("ctx.lineTo(" + touches[i].pageX + ", " + touches[i].pageY + ");");
       ctx.lineTo(touches[i].pageX, touches[i].pageY);
       ctx.lineWidth = 4;
       ctx.strokeStyle = color;
@@ -85,7 +85,7 @@ function handleMove(evt) {
 
 function handleEnd(evt) {
   evt.preventDefault();
-  log("touchend");
+  //log("touchend");
   var el = document.getElementById("canvas");
   var ctx = el.getContext("2d");
   var touches = evt.changedTouches;
@@ -100,7 +100,7 @@ function handleEnd(evt) {
       ctx.beginPath();
       ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
       ctx.lineTo(touches[i].pageX, touches[i].pageY);
-      ctx.fillRect(touches[i].pageX - 4, touches[i].pageY - 4, 8, 8);  // and a square at the end
+      ctx.fillRect(touches[i].pageX - 4, touches[i].pageY - 4, 8, 8);  // add a square at the end
       ongoingTouches.splice(idx, 1);  // remove it; we're done
     } else {
       log("can't figure out which touch to end");
