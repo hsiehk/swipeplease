@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0037)https://hsiehk.github.io/swipeplease/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body class="vsc-initialized">
-<h1 id="Welcome" style="font-size: 100px;"> Welcome! </h1>
+<h1 id="Welcome" style="font-size: 100px;"> Welcome! Thank you for your help! </h1>
 <p id="instructions" style="font-size: 1cm;"> After clicking one of the experimental trial buttons please start scrolling down inside the box:</p>
 
 <button type="button" id="Start200" onclick="timer200()" style="height: 50px;">Start 200 Seconds Trial</button>
@@ -15,7 +15,7 @@ Log: <pre id="log" style="border: 1px solid #ccc;"></pre>
 
 <script> 
 
-document.getElementById("Welcome").style.fontSize="100px";
+document.getElementById("Welcome").style.fontSize="50px";
 document.getElementById("instructions").style.fontSize="1cm";
 document.getElementById("Start200").style.height = "100px";
 document.getElementById("Start300").style.height = "100px";
@@ -53,17 +53,23 @@ function handleStart(evt) {
     ctx.fillStyle = color;
     ctx.fill();
     //log("touchstart:" + i + ".");
+    if (elapsed() > 200000 && t300 == 0){
+      t200 = 0;
+    }
+    else if (elapsed() > 300000 && t200 == 0){
+      t300 = 0;
+    }
     if (t200 == 1) {
       recordedTime = elapsed();
-      //log("start recording " + recordedTime);
+      log("start recording " + recordedTime);
       //record to json w/ coordinates
     }
     else if (t300 == 1){
       recordedTime = elapsed();
+      log("start recording " + recordedTime);
       //record to json w/ coordinates
-      //log("start recording " + recordedTime);
+      
     }
-    
   }
 }
 
@@ -92,12 +98,12 @@ function handleMove(evt) {
 
       if (t200 == 1) {
         recordedTime = elapsed();
-        //log("recording " + recordedTime);
+        log("recording " + recordedTime);
         //record to json w/ coordinates
       }
       else if (t300 == 1){
         recordedTime = elapsed();
-        //log("recording " + recordedTime);
+        log("recording " + recordedTime);
         //record to json w/ coordinates
       }
     } else {
@@ -128,12 +134,12 @@ function handleEnd(evt) {
 
       if (t200 == 1) {
         recordedTime = elapsed();
-        //log("end recorded " + recordedTime);
+        log("end recorded " + recordedTime);
         //record to json w/ coordinates
       }
       else if (t300 == 1){
         recordedTime = elapsed();
-        //log("end recorded " + recordedTime);
+        log("end recorded " + recordedTime);
         //record to json w/ coordinates
       }
     } else {
@@ -189,11 +195,14 @@ function timer200(){
   var x = document.getElementById("Start200");
   x.disabled = true;
   t200 = 1;
-  prevTime = Date.now();
-  setTimeout(function(){ alert("The 200 Seconds is up!"); }, 200000);
-  if (elapsed() == 200000){
-    log("\n 200 seconds is up!\n");
-    t200 = 0;
+  if (t300 == 1 && t200 == 1){
+    log("Error, please press one button at a time.");
+    y.disabled = false;
+    x.disabled = false;
+  }
+  else{
+    prevTime = Date.now();
+    setTimeout(function(){ alert("The 200 Seconds is up!"); }, 200000);
   }
 }
 
@@ -201,11 +210,14 @@ function timer300(){
   var y = document.getElementById("Start300");
   y.disabled = true;
   t300 = 1;
-  prevTime = Date.now();
-  setTimeout(function(){ alert("The 300 Seconds is up!"); }, 300000);
-  if (elapsed() == 300000){
-    log("\n 300 seconds is up!\n");
-    t300 = 0;
+  if (t300 == 1 && t200 == 1){
+    log("Error, please press one button at a time.");
+    y.disabled = false;
+    x.disabled = false;
+  }
+  else{
+    prevTime = Date.now();
+    setTimeout(function(){ alert("The 300 Seconds is up!"); }, 300000);
   }
 }
 
@@ -213,6 +225,7 @@ function elapsed(){
   timediff = Date.now() - prevTime;
   return timediff;
 }
+
 // Record to json file with coordinates and time stamps
 // once timer runs out push to git
 
