@@ -2,9 +2,9 @@
 <!-- saved from url=(0037)https://hsiehk.github.io/swipeplease/ -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body class="vsc-initialized">
 <h1 id="Welcome" style="font-size: 100px;"> Welcome! Thank you for your help! </h1>
-<p id="instructions" style="font-size: 1cm;"> After clicking one of the experimental trial buttons please start scrolling down inside the box:</p>
-
-<button type="button" onclick = "updateSheetValues(k, userIndex)">Update A1</button>
+<p id="instructions" style="font-size: 1cm;"> Please enter your given ID number. <br><input type="text" id="myText"> <button type="button" onclick = "IDget()">Enter</button> <br>
+  After clicking one of the experimental trial buttons please start scrolling down inside the box, when done please press finish:</p>
+<br>
 <button type="button" id="Start200" onclick="timer200()" style="height: 50px;">Start 200 Seconds Trial</button>
 <button type="button" id="Start300" onclick="timer300()" style="height: 50px;">Start 300 Seconds Trial</button>
 <br>
@@ -12,6 +12,7 @@
   Your browser does not support canvas element.
 </canvas>
 <br>
+<button type="button" id="finish" onclick="compileAll()" style="height: 50px;">Finish</button> <br>
 Log: <pre id="log" style="border: 1px solid #ccc;"></pre>
 
 <script> 
@@ -22,16 +23,66 @@ document.getElementById("Start200").style.height = "100px";
 document.getElementById("Start300").style.height = "100px";
 document.getElementById("Start200").style.width = "480px";
 document.getElementById("Start300").style.width = "480px";
-
-var userIndex = window.prompt("Please enter your assigned ID number: ");
+document.getElementById("finish").style.height = "100px";
+document.getElementById("finish").style.width = "960px";
 
 const SHEET_ID1 = '13geD-9wkMvIYBi0VgiV6mdHxLnbiPPdgIxoso1YG_3k'; //200s
 const SHEET_ID2 = '1YikCpNGi1P0Jtz3EWbWWh2C9NcUHw8TJwBWdR40ssDw'; //300s
-const ACCESS_TOKEN = 'ya29.a0AfH6SMDG0JfmtO4fEQ69di_7d9cZjhFQi1jKFf-rj-PqOOSkrdOPqVfuDgKcJ3ENm2CEwQHkIymD8ozy_Yxl3255zNXQX6NL9g_GCd0MIRloBgusEwyNJirncYvaVETb4eDxDMjZQXcx1aX-f8e2ZIaTfJHM';
+const ACCESS_TOKEN = 'ya29.a0AfH6SMBNtpUHMFEvM0Q8CzfkfHanSL8JYpeaOfXR27P_OwvSqX_K44K5NU6_XUilvJEHxDK-dppLE7foL_CFA_j-gGQWm2PYhRSgweGA4QbN9h8oFmgcUP08Y0BFBN9jNAk7NIP1kx5XwNvJtjCRBip45PCT';
 
-//add in user input column to know which they should be inputting
-function  updateSheetValues(k, userIndex) {
-  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID1}:batchUpdate`, {
+var userID=0;
+
+function IDget(){
+  userID = document.getElementById("myText").value;
+  //log(userID);
+}
+
+function testing(){
+  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID2}:batchUpdate`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      //update this token with yours. 
+      Authorization: `Bearer ${ACCESS_TOKEN}`,
+    },
+    body: JSON.stringify({
+      requests: [{
+        repeatCell: {
+          range: {
+            startColumnIndex: 0,
+            endColumnIndex: 1,
+            startRowIndex: 0,
+            endRowIndex: 1,
+            sheetId: 0
+          },
+          cell: {
+            userEnteredValue: {
+              "numberValue": 2
+            },
+          },
+        fields: "*"
+        }
+      }]
+    })
+  })
+  
+}
+
+function  updateSheetValues(index,userID,value,dataType) {
+  /*
+  BEFORE RUNNING:
+    ---------------
+    1. If not already done, enable the Google Sheets API
+       and check the quota for your project at
+       https://console.developers.google.com/apis/api/sheets
+    2. Get access keys for your application. See
+       https://developers.google.com/api-client-library/javascript/start/start-js#get-access-keys-for-your-application
+    3. For additional information on authentication, see
+       https://developers.google.com/sheets/api/quickstart/js#step_2_set_up_the_sample
+  */
+  
+  if (dataType==1){ //200s time data
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID1}:batchUpdate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,22 +93,168 @@ function  updateSheetValues(k, userIndex) {
         requests: [{
           repeatCell: {
             range: {
-              startColumnIndex: k,
-              endColumnIndex: k+1,
-              startRowIndex: userIndex,
-              endRowIndex: userIndex+1,
+              startColumnIndex: userID,
+              endColumnIndex: userID+1,
+              startRowIndex: index,
+              endRowIndex: index+1,
               sheetId: 0
             },
             cell: {
               userEnteredValue: {
-                "numberValue": 100
+                "numberValue": value
               },
             },
           fields: "*"
-        }
-      }]
+          }
+        }]
+      })
     })
-  })
+  }
+  else if (dataType==2){ //200s x coordinate data
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID1}:batchUpdate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //update this token with yours. 
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({
+        requests: [{
+          repeatCell: {
+            range: {
+              startColumnIndex: userID+1,
+              endColumnIndex: userID+2,
+              startRowIndex: index,
+              endRowIndex: index+1,
+              sheetId: 0
+            },
+            cell: {
+              userEnteredValue: {
+                "numberValue": value
+              },
+            },
+          fields: "*"
+          }
+        }]
+      })
+    })
+  }
+  else if (dataType==3){ //200s y coordinate data
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID1}:batchUpdate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //update this token with yours. 
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({
+        requests: [{
+          repeatCell: {
+            range: {
+              startColumnIndex: userID+2,
+              endColumnIndex: userID+3,
+              startRowIndex: index,
+              endRowIndex: index+1,
+              sheetId: 0
+            },
+            cell: {
+              userEnteredValue: {
+                "numberValue": value
+              },
+            },
+          fields: "*"
+          }
+        }]
+      })
+    })
+  }
+  else if (dataType==4){ //300s time data
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID2}:batchUpdate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //update this token with yours. 
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({
+        requests: [{
+          repeatCell: {
+            range: {
+              startColumnIndex: userID,
+              endColumnIndex: userID+1,
+              startRowIndex: index,
+              endRowIndex: index+1,
+              sheetId: 0
+            },
+            cell: {
+              userEnteredValue: {
+                "numberValue": value
+              },
+            },
+          fields: "*"
+          }
+        }]
+      })
+    })
+  }
+  else if (dataType==5){ //300s x coordinate data
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID2}:batchUpdate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //update this token with yours. 
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({
+        requests: [{
+          repeatCell: {
+            range: {
+              startColumnIndex: userID+1,
+              endColumnIndex: userID+2,
+              startRowIndex: index,
+              endRowIndex: index+1,
+              sheetId: 0
+            },
+            cell: {
+              userEnteredValue: {
+                "numberValue": value
+              },
+            },
+          fields: "*"
+          }
+        }]
+      })
+    })
+  }
+  else if (dataType==6){ //300s y coordinate data
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID2}:batchUpdate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //update this token with yours. 
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({
+        requests: [{
+          repeatCell: {
+            range: {
+              startColumnIndex: userID+2,
+              endColumnIndex: userID+3,
+              startRowIndex: index,
+              endRowIndex: index+1,
+              sheetId: 0
+            },
+            cell: {
+              userEnteredValue: {
+                "numberValue": value
+              },
+            },
+          fields: "*"
+          }
+        }]
+      })
+    })
+  }
 }
 
 function startup() {
@@ -67,6 +264,7 @@ function startup() {
   el.addEventListener("touchcancel", handleCancel, false);
   el.addEventListener("touchmove", handleMove, false);
 }
+
 var ongoingTouches = [];
 document.addEventListener("DOMContentLoaded", startup);
 
@@ -97,19 +295,25 @@ function handleStart(evt) {
     else if (elapsed() > 300000 && t200 == 0){
       t300 = 0;
     }
+    /*
     if (t200 == 1) {
       recordedTime = elapsed();
       log("start recording " + recordedTime);
-      //record to json w/ coordinates
     }
     else if (t300 == 1){
       recordedTime = elapsed();
       log("start recording " + recordedTime);
-      //record to json w/ coordinates
-      
     }
+    */
   }
 }
+
+var arrtime200 = [];
+var xcord200 = [];
+var ycord200 = [];
+var arrtime300 = [];
+var xcord300 =[];
+var ycord300 =[];
 
 function handleMove(evt) {
   evt.preventDefault();
@@ -136,13 +340,17 @@ function handleMove(evt) {
 
       if (t200 == 1) {
         recordedTime = elapsed();
-        log("recording " + recordedTime);
-        //record to json w/ coordinates
+        //log("recording " + recordedTime);
+        arrtime200.push(recordedTime);
+        xcord200.push(ongoingTouches[idx].pageX);
+        ycord200.push(ongoingTouches[idx].pageY);
       }
       else if (t300 == 1){
         recordedTime = elapsed();
-        log("recording " + recordedTime);
-        //record to json w/ coordinates
+        //log("recording " + recordedTime);
+        arrtime300.push(recordedTime);
+        xcord300.push(ongoingTouches[idx].pageX);
+        ycord300.push(ongoingTouches[idx].pageY);
       }
     } else {
       log("can't figure out which touch to continue");
@@ -264,6 +472,39 @@ function elapsed(){
   return timediff;
 }
 
+function compileAll(){
+  seconds = Math.floor(arrtime200.length/1000);
+  for(var i = 0;i<arrtime200.length;i++){
+    if(i==(i*seconds)){
+      updateSheetValues(i,userID,arrtime200[i],1);
+    }
+  }
+  for(var i = 0;i<xcord200.length;i++){
+    if(i==(i*seconds)){
+      updateSheetValues(i,userID,xcord200[i],2);
+    }
+  }
+  for(var i = 0;i<ycord200.length;i++){
+    if(i==(i*seconds)){
+      updateSheetValues(i,userID,ycord200[i],3);
+    }
+  }
+  for(var i = 0;i<arrtime300.length;i++){
+    if(i==(i*seconds)){
+      updateSheetValues(i,userID,arrtime300[i],4);
+    }
+  }
+  for(var i = 0;i<xcord300.length;i++){
+    if(i==(i*seconds)){
+      updateSheetValues(i,userID,xcord300[i],5);
+    }
+  }
+  for(var i = 0;i<ycord300.length;i++){
+    if(i==(i*seconds)){
+      updateSheetValues(i,userID,ycord300[i],6);
+    }
+  }
+}
 // Record to json file with coordinates and time stamps
 // once timer runs out push to git
 
