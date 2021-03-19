@@ -4,6 +4,7 @@
 <h1 id="Welcome" style="font-size: 100px;"> Welcome! Thank you for your help! </h1>
 <p id="instructions" style="font-size: 1cm;"> After clicking one of the experimental trial buttons please start scrolling down inside the box:</p>
 
+<button type="button" onclick = "updateSheetValues()">Update A1</button>
 <button type="button" id="Start200" onclick="timer200()" style="height: 50px;">Start 200 Seconds Trial</button>
 <button type="button" id="Start300" onclick="timer300()" style="height: 50px;">Start 300 Seconds Trial</button>
 <br>
@@ -21,6 +22,40 @@ document.getElementById("Start200").style.height = "100px";
 document.getElementById("Start300").style.height = "100px";
 document.getElementById("Start200").style.width = "480px";
 document.getElementById("Start300").style.width = "480px";
+
+const SHEET_ID = '13geD-9wkMvIYBi0VgiV6mdHxLnbiPPdgIxoso1YG_3k';
+const ACCESS_TOKEN = 'ya29.a0AfH6SMDG0JfmtO4fEQ69di_7d9cZjhFQi1jKFf-rj-PqOOSkrdOPqVfuDgKcJ3ENm2CEwQHkIymD8ozy_Yxl3255zNXQX6NL9g_GCd0MIRloBgusEwyNJirncYvaVETb4eDxDMjZQXcx1aX-f8e2ZIaTfJHM';
+
+//add in user input column to know which they should be inputting
+function  updateSheetValues() {
+  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}:batchUpdate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        //update this token with yours. 
+        Authorization: `Bearer ${ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify({
+        requests: [{
+          repeatCell: {
+            range: {
+              startColumnIndex: 2,
+              endColumnIndex: 3,
+              startRowIndex: 2,
+              endRowIndex: 3,
+              sheetId: 0
+            },
+            cell: {
+              userEnteredValue: {
+                "numberValue": 100
+              },
+            },
+          fields: "*"
+        }
+      }]
+    })
+  })
+}
 
 function startup() {
   var el = document.getElementById("canvas");
