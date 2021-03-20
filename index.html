@@ -27,7 +27,7 @@ document.getElementById("finish").style.height = "100px";
 document.getElementById("finish").style.width = "960px";
 
 const SHEET_ID = '13geD-9wkMvIYBi0VgiV6mdHxLnbiPPdgIxoso1YG_3k';
-const ACCESS_TOKEN = 'ya29.a0AfH6SMCOXFw-Bn2TVWgyZDu1uAuU_pqNeKeKmwelKtc-4xlxTBGr7tnCKCkl8EYZYekLRcyw7NqeVnVNkItwWMUj3zK86XmoNmWcvMfAVSIcvqEOzrU1FYqSOgcdWqkg9kL2vvctJoM56pTtDePOvh2Ub7F4';
+const ACCESS_TOKEN = 'ya29.a0AfH6SMB31UxkTrBv4w59EysNBsSLZAsRWSIevIW_hnZjU69Z7Zj_xe7dECEoaXqQHwcTOvhNtDpJBjnaVxQjIe6mMZc80omhxKdNhFKK9_hViNj5LD4dYC8dBeA-z1vNQZp7fmUp3Poe67077QZ5iKBvIJCD';
 
 var userID=0;
 
@@ -70,7 +70,8 @@ function testing(){
 
 function  updateSheetValues() {
   var col = toColumnName(userID);
-  var endcol = toColumnName(userID+6);
+  var end = Number(userID) + 6;
+  var endcol = toColumnName(end);
   var str1 = "Sheet1!";
   var str2 = col;
   var str3 = "1:";
