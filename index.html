@@ -29,6 +29,11 @@ document.getElementById("finish").style.width = "960px";
 const SHEET_ID = '13geD-9wkMvIYBi0VgiV6mdHxLnbiPPdgIxoso1YG_3k';
 const ACCESS_TOKEN = 'ya29.a0AfH6SMCbDDQCS6Dl0zbD0T8qEd4AP37fAxs4zExEkN5cJu_CIz803zO0R7jQO8lgFQ50pBq41tqOxsK6D4_Vfj2WMaRAqWZaino2xLme9jo0vFYb74AMkGDano_vCl77lInLVAG7UnJw9xpoA2UFwvxWcADb';
 
+var c = document.getElementById("canvas");
+var ctx = c.getContext("2d");
+ctx.fillStyle = "#AA0000";
+ctx.fillRect(0, 0, 1000, 1000);
+
 var userID=0;
 
 function IDget(){
