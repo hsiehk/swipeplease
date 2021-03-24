@@ -91,7 +91,7 @@ function  updateSheetValues() {
        https://developers.google.com/sheets/api/quickstart/js#step_2_set_up_the_sample
   */
 
-  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!${userID}1:${endcol}400000?valueInputOption=RAW`, {
+  fetch(`https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/Sheet1!${col}1:${endcol}400000?valueInputOption=RAW`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
