@@ -160,14 +160,14 @@ function handleStart(evt) {
     
     if (t200 == 1) {
       recordedTime = elapsed();
-      //log("start recording " + recordedTime);
+      log("start recording " + recordedTime);
       arrtime200.push(recordedTime);
       xcord200.push(ongoingTouches[idx].pageX);
       ycord200.push(ongoingTouches[idx].pageY);
     }
     else if (t300 == 1){
       recordedTime = elapsed();
-      //log("start recording " + recordedTime);
+      log("start recording " + recordedTime);
       arrtime300.push(recordedTime);
       xcord300.push(ongoingTouches[idx].pageX);
       ycord300.push(ongoingTouches[idx].pageY);
@@ -194,11 +194,11 @@ function handleMove(evt) {
     var idx = ongoingTouchIndexById(touches[i].identifier);
 
     if (idx >= 0) {
-      //log("continuing touch "+idx);
+      log("continuing touch "+idx);
       ctx.beginPath();
-      //log("ctx.moveTo(" + ongoingTouches[idx].pageX + ", " + ongoingTouches[idx].pageY + ");");
+      log("ctx.moveTo(" + ongoingTouches[idx].pageX + ", " + ongoingTouches[idx].pageY + ");");
       ctx.moveTo(ongoingTouches[idx].pageX, ongoingTouches[idx].pageY);
-      //log("ctx.lineTo(" + touches[i].pageX + ", " + touches[i].pageY + ");");
+      log("ctx.lineTo(" + touches[i].pageX + ", " + touches[i].pageY + ");");
       ctx.lineTo(touches[i].pageX, touches[i].pageY);
       ctx.lineWidth = 4;
       ctx.strokeStyle = color;
@@ -208,14 +208,14 @@ function handleMove(evt) {
 
       if (t200 == 1) {
         recordedTime = elapsed();
-        //log("recording " + recordedTime);
+        log("recording " + recordedTime);
         arrtime200.push(recordedTime);
         xcord200.push(ongoingTouches[idx].pageX);
         ycord200.push(ongoingTouches[idx].pageY);
       }
       else if (t300 == 1){
         recordedTime = elapsed();
-        //log("recording " + recordedTime);
+        log("recording " + recordedTime);
         arrtime300.push(recordedTime);
         xcord300.push(ongoingTouches[idx].pageX);
         ycord300.push(ongoingTouches[idx].pageY);
@@ -228,7 +228,7 @@ function handleMove(evt) {
 
 function handleEnd(evt) {
   evt.preventDefault();
-  //log("touchend");
+  log("touchend");
   var el = document.getElementById("canvas");
   var ctx = el.getContext("2d");
   var touches = evt.changedTouches;
