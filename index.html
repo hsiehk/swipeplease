@@ -13,7 +13,7 @@
 </canvas>
 <br>
 <button type="button" id="finish" onclick="updateSheetValues()" style="height: 50px;">Finish</button> <br>
-<pre id="version"> v1.9</pre>
+<pre id="version"> v2.0</pre>
 Log: <pre id="log" style="border: 1px solid #ccc;"></pre>
 
 <script> 
@@ -157,16 +157,22 @@ function handleStart(evt) {
     else if (elapsed() > 300000 && t200 == 0){
       t300 = 0;
     }
-    /*
+    
     if (t200 == 1) {
       recordedTime = elapsed();
-      log("start recording " + recordedTime);
+      //log("start recording " + recordedTime);
+      arrtime200.push(recordedTime);
+      xcord200.push(ongoingTouches[idx].pageX);
+      ycord200.push(ongoingTouches[idx].pageY);
     }
     else if (t300 == 1){
       recordedTime = elapsed();
-      log("start recording " + recordedTime);
+      //log("start recording " + recordedTime);
+      arrtime300.push(recordedTime);
+      xcord300.push(ongoingTouches[idx].pageX);
+      ycord300.push(ongoingTouches[idx].pageY);
     }
-    */
+    
   }
 }
 
@@ -243,12 +249,14 @@ function handleEnd(evt) {
       if (t200 == 1) {
         recordedTime = elapsed();
         log("end recorded " + recordedTime);
-        //record to json w/ coordinates
+        xcord200.push(ongoingTouches[idx].pageX);
+        ycord200.push(ongoingTouches[idx].pageY);
       }
       else if (t300 == 1){
         recordedTime = elapsed();
         log("end recorded " + recordedTime);
-        //record to json w/ coordinates
+        xcord300.push(ongoingTouches[idx].pageX);
+        ycord300.push(ongoingTouches[idx].pageY);
       }
     } else {
       log("can't figure out which touch to end");
