@@ -11,4 +11,5 @@ Using video frame analysis of user squeezing a plastic water bottle before and a
 A decrease in swipe speed or swipe stroke would infer the cyclic loading of the muscles has caused fatigue.
 
 More information on the study can be seen here:
+
 https://kenthsieh.wixsite.com/website/smartphone-use-median-nerve
