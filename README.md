@@ -13,3 +13,7 @@ A decrease in swipe speed or swipe stroke would infer the cyclic loading of the 
 More information on the study can be seen here:
 
 https://kenthsieh.wixsite.com/website/smartphone-use-median-nerve
+
+Website:
+
+https://hsiehk.github.io/swipeplease/
